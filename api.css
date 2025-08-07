@@ -18,7 +18,7 @@
     justify-content: center;
     align-items: center;
     min-height: 90px;
-    background-color: bisque;
+    background-color: rgb(173, 93, 247);
     margin-bottom: 20px;
     
 }
@@ -107,4 +107,5 @@
     align-items: center;
     min-height: 90px;
     background-color: azure;
+    margin-top: 30px;
 }
