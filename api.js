@@ -1,8 +1,10 @@
 const button_content_1 = document.querySelector(".button_content_1")
 const button_content_2 = document.querySelector(".button_content_2")
+const button_content_3 = document.querySelector(".button_content_3")
+const button_content_4 = document.querySelector(".button_content_4")
 const page_actuel_tag = document.querySelector(".page_actuel")
 const test = document.querySelector(".test")
-let first = 0
+let first = 1
 let numb_drapeau = 5;
 let page_actuel = 1
 
@@ -27,12 +29,12 @@ function api() {
             console.log(data.length)
             const langages = data[0].languages
             const langage = Object.values(langages)
-            
+
             console.log(langage[0])
 
 
             page_actuel_tag.innerHTML = `${page_actuel}`
-            for (x = first; x <= numb_drapeau; x++) {
+            for (x = first; x < numb_drapeau+2; x++) {
                 if (countrie) {
                     content += `
                         <div class="countrie_item">
@@ -58,26 +60,48 @@ function api() {
                         `
                 }
             }
-           
-        
-        countrie.innerHTML = content
-        
-        
-    })
-     if (button_content_1) {
-                button_content_1.addEventListener("click", (e) => {
-                    e.preventDefault();
-                    first -= 5, numb_drapeau -= 5, page_actuel -= 1
-                    api()
-                })
+
+
+            countrie.innerHTML = content
+
+
+        })
+    }
+    if (button_content_1) {
+        button_content_1.addEventListener("click", (e) => {
+            e.preventDefault();
+            if (first > 1) {
+                first -= 5, numb_drapeau -= 5, page_actuel -= 1
+                api()
             }
-            if (button_content_2) {
-                button_content_2.addEventListener("click", (e) => {
-                    e.preventDefault();
-                    first += 5, numb_drapeau += 5, page_actuel += 1
-                    api()
-                })
-            
-        }
-}
+
+        })
+    }
+    if (button_content_2) {
+        button_content_2.addEventListener("click", (e) => {
+            e.preventDefault();
+            if (first <= 195) {
+                first += 5, numb_drapeau += 5, page_actuel += 1
+                api()
+            }
+
+        })
+
+    }
+    if(button_content_3){
+         button_content_3.addEventListener("click", (e) => {
+            e.preventDefault();
+           console.log("bouton clique")
+                first =1
+                api()
+        })
+    }
+      if(button_content_4){
+         button_content_3.addEventListener("click", (e) => {
+            e.preventDefault();
+           console.log("bouton clique")
+                first =195
+                api()
+        })
+    }
 api()
