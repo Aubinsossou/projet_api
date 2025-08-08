@@ -59,7 +59,12 @@
    
 }
 .countrie_item_part3_icon_1{
+    cursor: pointer;
     width: 50px;
+    transition: 0.4s;
+}
+.countrie_item_part3_icon_1:hover{
+   transform: scale(1.2);
 }
 .button_content{
     margin-top: 20px;
