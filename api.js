@@ -1,7 +1,7 @@
-const button_content_1 = document.querySelector(".button_content_1")
-const button_content_2 = document.querySelector(".button_content_2")
-const button_content_3 = document.querySelector(".button_content_3")
-const button_content_4 = document.querySelector(".button_content_4")
+const button_precedent = document.querySelector(".button_content_1")
+const button_suivant = document.querySelector(".button_content_2")
+const button_premiere_page = document.querySelector(".button_content_3")
+const button_derniere_page = document.querySelector(".button_content_4")
 const page_actuel_tag = document.querySelector(".page_actuel")
 const test = document.querySelector(".test")
 let first = 0
@@ -27,14 +27,15 @@ function api() {
         .then(data => {
 
             console.log(data.length)
-            const langages = data[0].languages
-            const langage = Object.values(langages)
 
-            console.log(langage[0])
+
+
 
 
             page_actuel_tag.innerHTML = `${page_actuel}`
             for (x = first; x <= numb_drapeau; x++) {
+                const langages = data[x].languages
+                const langage = Object.values(langages)
                 if (countrie) {
                     content += `
                         <div class="countrie_item">
@@ -46,7 +47,7 @@ function api() {
                                 <img src="${data[x].coatOfArms.png}" alt="" class="devise_pays">
                             </div>
                             <div class="countrie_item_part3">
-                                <h3>Langue: ${langage[0]++}</h3>
+                                <h3>Langue: ${langage[0]}</h3>
                                 <h3>Populations: ${data[x].population}</h3>
                                 <h3>Capital: ${data[x].capital[0]}</h3>
                                 <div class="countrie_content_part3_icon">
@@ -67,48 +68,65 @@ function api() {
 
         })
 }
-if (button_content_1) {
-    button_content_1.addEventListener("click", (e) => {
-        e.preventDefault();
-        if (first > 1) {
-            first -= 5, numb_drapeau -= 5, page_actuel -= 1
-            api()
-        }
-        if (page_actuel == 1) {
-            return
-        }
+if (button_precedent) {
+    button_precedent.addEventListener("click", (e) => {
+        e.preventDefault(); 
+        if(page_actuel ==1){
 
-    })
-}
-if (button_content_2) {
-    button_content_2.addEventListener("click", (e) => {
-        e.preventDefault();
-        if (first <= 195) {
-            first += 5, numb_drapeau += 5, page_actuel += 1
-            api()
+            return false
         }
+        else{
+            first -= 6, numb_drapeau -= 6, page_actuel -= 1
+        api()
 
-    })
-
-}
-if (button_content_3) {
-    button_content_3.addEventListener("click", (e) => {
-        e.preventDefault();
-        console.log("bouton clique")
-        if (page_actuel !== 1) {
-            page_actuel = 1
-            api()
-        }
-    })
-}
-if (button_content_4) {
-    button_content_4.addEventListener("click", (e) => {
-        e.preventDefault();
-        console.log("bouton clique")
-        if (page_actuel !== 39) {
-            page_actuel = 39
-            api()
         }
     })
 }
 api()
+
+if (button_suivant) {
+    button_suivant.addEventListener("click", (e) => {
+        e.preventDefault();
+        first += 6, numb_drapeau += 6, page_actuel += 1
+        if (first <= 186) {
+            api()
+        } else if (first >= 192 && first < 195) {
+            console.log("oui je suis")
+            first -= 3, numb_drapeau -= 3, page_actuel += 0
+            api()
+        } else {
+            first = 192
+            console.log(first)
+            return false
+
+        }
+
+
+    })
+
+}
+let actualisation = true
+if (button_premiere_page) {
+    button_premiere_page.addEventListener("click", (e) => {
+        e.preventDefault();
+        if (actualisation && page_actuel !== 1) {
+            first = 0
+            numb_drapeau = 5
+            page_actuel = 1
+            api()
+        }
+
+
+    })
+}
+if (button_derniere_page) {
+    button_derniere_page.addEventListener("click", (e) => {
+        e.preventDefault();
+        if (actualisation && page_actuel !== 33) {
+            first = 192, numb_drapeau = 194, page_actuel = 33
+            api()
+        }
+
+
+    })
+}
