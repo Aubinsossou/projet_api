@@ -102,8 +102,9 @@
     margin: 40px 10px;
 }
 .devise_pays{
-    width: 200px;
+    width: 250px;
     margin: 0 10px;
+    height: 150px;
 }
 /*footer*/
 .footer{
