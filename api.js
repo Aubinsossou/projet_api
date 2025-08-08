@@ -74,6 +74,9 @@ function api() {
                 first -= 5, numb_drapeau -= 5, page_actuel -= 1
                 api()
             }
+            if(page_actuel==1){
+                return 
+            }
 
         })
     }
@@ -92,15 +95,15 @@ function api() {
          button_content_3.addEventListener("click", (e) => {
             e.preventDefault();
            console.log("bouton clique")
-                first =1
+                page_actuel =1
                 api()
         })
     }
       if(button_content_4){
-         button_content_3.addEventListener("click", (e) => {
+         button_content_4.addEventListener("click", (e) => {
             e.preventDefault();
            console.log("bouton clique")
-                first =195
+                page_actuel =39
                 api()
         })
     }
