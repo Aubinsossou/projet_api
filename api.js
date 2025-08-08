@@ -95,16 +95,20 @@ function api() {
          button_content_3.addEventListener("click", (e) => {
             e.preventDefault();
            console.log("bouton clique")
+           if (page_actuel !== 1) {
                 page_actuel =1
                 api()
+           }
         })
     }
       if(button_content_4){
          button_content_4.addEventListener("click", (e) => {
             e.preventDefault();
            console.log("bouton clique")
+           if (page_actuel !== 39) {
                 page_actuel =39
                 api()
+           }
         })
     }
 api()
