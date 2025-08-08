@@ -9,11 +9,15 @@
     max-width: 900px;
     margin: 0 auto;
 }
+body{
+    font-family: Arial, Helvetica, sans-serif;
+}
 .main{
     min-height: calc(100vh - (90px + 90px));
 }
 /*Header*/
 .header{
+    color: white;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -34,7 +38,7 @@
     background-color: blueviolet;
     width: 300px;
     border-radius: 7px;
-    box-shadow: 0px 0px 20px 3px blueviolet;
+    box-shadow: 0px 20px 20px 4px blueviolet;
    transition: 0.3s;
 }
 .countrie_item:hover{
@@ -112,6 +116,7 @@
     justify-content: center;
     align-items: center;
     min-height: 90px;
-    background-color: azure;
+    background-color: rgb(163, 88, 234);
     margin-top: 30px;
+    color: white;
 }
