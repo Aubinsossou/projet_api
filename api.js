@@ -15,22 +15,18 @@ let page_actuel = 1
 function api() {
     const url = "https://restcountries.com/v3.1/independent?status=true"
     const countrie = document.querySelector(".countrie")
-    countrie.innerHTML = ""
+    //countrie.innerHTML = ""
     let content = ``
     fetch(url)
         .then(response => {
             if (!response.ok) {
                 throw new Error(`Erreur HTTP! Statut: ${response.status}`);
             }
-            return response.json(); // Convertit la réponse en JSON
+            return response.json(); 
         })
         .then(data => {
 
             console.log(data.length)
-
-
-
-
 
             page_actuel_tag.innerHTML = `${page_actuel}`
             for (x = first; x <= numb_drapeau; x++) {
@@ -40,7 +36,7 @@ function api() {
                     content += `
                         <div class="countrie_item">
                             <div class="countrie_item_part1">
-                                <span><img src="${data[x].flags.svg}" alt="" class="img_pays"></span>
+                                <span class="img_pays"><img src="${data[x].flags.svg}" alt="" ></span>
                                 <h2 class="name_pays">Pays: ${data[x].name.common}</h2><br>
                             </div>
                             <div class="countrie_item_part2">
@@ -66,18 +62,67 @@ function api() {
             countrie.innerHTML = content
 
 
+            countrie_item_active = document.querySelectorAll(".countrie_item")
+            if (countrie_item_active) {
+
+                countrie_item_active.forEach((item, index) => {
+                    item.addEventListener("click", () => {
+                        countrie_item_active.forEach((element, id) => {
+                            if (id !== index) {
+                                element.classList.toggle("active", false)
+                            }
+                        })
+                        item.classList.toggle("active")
+                    })
+                });
+            }
+             if (page_actuel == 1 && first == 0 && numb_drapeau == 5) {
+
+                button_premiere_page.disabled = true
+                button_precedent.disabled = true
+                button_premiere_page.classList="disable"
+                button_precedent.classList="disable"
+            }
+            else if (page_actuel !== 1 && first !== 0 && numb_drapeau !== 5) {
+
+                button_precedent.disabled = false
+                button_premiere_page.disabled = false
+                button_precedent.classList="button_content_1"
+                button_premiere_page.classList="button_content_3"
+            }
+              if (page_actuel == 33 ) {
+
+                button_suivant.disabled = true
+                button_derniere_page.disabled = true
+                button_suivant.classList="disable"
+                button_derniere_page.classList="disable"
+            }
+            else if (page_actuel !== 33 ) {
+
+                button_suivant.disabled = false
+                button_derniere_page.disabled = false
+                button_suivant.classList="button_content_2"
+                button_derniere_page.classList="button_content_4"
+            } 
         })
 }
+
+
+
 if (button_precedent) {
     button_precedent.addEventListener("click", (e) => {
-        e.preventDefault(); 
-        if(page_actuel ==1){
-
+        e.preventDefault();
+        if (page_actuel == 1) {
             return false
         }
-        else{
+        if (first == 192) {
+            first -= 9, numb_drapeau -= 6, page_actuel -= 1
+            api()
+
+        }
+        else {
             first -= 6, numb_drapeau -= 6, page_actuel -= 1
-        api()
+            api()
 
         }
     })
@@ -97,11 +142,11 @@ if (button_suivant) {
         } else {
             first = 192
             console.log(first)
-            return false
-
+            api()
+           // return false
         }
-
-
+        
+        
     })
 
 }
@@ -113,10 +158,11 @@ if (button_premiere_page) {
             first = 0
             numb_drapeau = 5
             page_actuel = 1
+
             api()
         }
 
-
+        
     })
 }
 if (button_derniere_page) {
@@ -126,7 +172,5 @@ if (button_derniere_page) {
             first = 192, numb_drapeau = 194, page_actuel = 33
             api()
         }
-
-
     })
 }
